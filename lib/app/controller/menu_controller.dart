@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:puntossmart_usuarios/app/routes/pages.dart';
+import 'package:delfosti_app/app/routes/pages.dart';
 
 class MenuzController extends GetxController {
-  final colorAnio = true.obs;
-  final colorMes = true.obs;
-  final colorDia = true.obs;
-
   @override
   void onReady() {
     super.onReady();
@@ -16,30 +12,30 @@ class MenuzController extends GetxController {
       RxList<BottomNavigationBarItem>(const [
     BottomNavigationBarItem(
       icon: Icon(Icons.apps),
-      label: 'Informes',
+      label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.summarize),
-      label: 'Sumatoria',
+      icon: Icon(Icons.movie),
+      label: 'Categorías',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Configuraciones',
+      icon: Icon(Icons.add),
+      label: 'Agregar',
     ),
   ]);
 
-  RxInt indexT = RxInt(0);
+  RxInt indexT = 0.obs;
 
   List<String> listPages = [
     Routes.DASHBOARD,
-    Routes.DASHBOARD,
-    Routes.DASHBOARD
+    Routes.CATEGORIES,
+    Routes.ADDMOVIES
   ];
 
   void handleNavigationChange(int index) {
-    print(index);
-    print(listPages[index]);
-    indexT.value = index;
-    Get.offAllNamed(listPages[indexT.value]);
+    if (index != indexT.value) {
+      indexT.value = index;
+      Get.offAndToNamed(listPages[index]);
+    }
   }
 }

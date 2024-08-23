@@ -1,6 +1,6 @@
-import 'package:puntossmart_usuarios/app/bindings/login_binding.dart';
-import 'package:puntossmart_usuarios/app/routes/pages.dart';
-import 'package:puntossmart_usuarios/app/ui/themes/light_theme.dart';
+import 'package:delfosti_app/app/bindings/login_binding.dart';
+import 'package:delfosti_app/app/routes/pages.dart';
+import 'package:delfosti_app/app/ui/themes/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:puntossmart_usuarios/app/controller/home_controller.dart';
+import 'package:delfosti_app/app/controller/home_controller.dart';
 
 class HomeBinding implements Bindings {
   @override

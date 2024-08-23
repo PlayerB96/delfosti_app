@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:puntossmart_usuarios/app/controller/menu_controller.dart';
+import 'package:delfosti_app/app/controller/menu_controller.dart';
 
 class MenuBinding implements Bindings {
   @override

@@ -1,34 +1,36 @@
-// ignore_for_file: invalid_use_of_protected_member
-
+import 'package:delfosti_app/app/data/model/movies/movies_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:puntossmart_usuarios/app/controller/menu_controller.dart';
-import 'package:puntossmart_usuarios/app/controller/home_controller.dart';
-import 'package:puntossmart_usuarios/app/routes/pages.dart';
-import 'package:puntossmart_usuarios/app/ui/global_widgets/drawer.dart';
-import 'package:puntossmart_usuarios/app/ui/utils/style_utils.dart';
+import 'package:delfosti_app/app/controller/menu_controller.dart';
+import 'package:delfosti_app/app/controller/home_controller.dart';
+import 'package:delfosti_app/app/routes/pages.dart';
+import 'package:delfosti_app/app/ui/global_widgets/drawer.dart';
+import 'package:delfosti_app/app/ui/utils/style_utils.dart';
 
 class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final MenuzController menuCntl = Get.put(MenuzController());
-    List<String> categories = [
-      'Electronics',
-      'Clothing',
-      'Home & Kitchen',
-      'Books',
-      'Toys',
-      'Sports',
-      'Health & Beauty',
-    ];
+    final TextEditingController searchController = TextEditingController();
+    String searchTerm = "";
+
     return GetBuilder<HomeController>(
       builder: (clientsCntl) {
+        // Buscar por titulo
+        List<MoviesData> filteredMovies = clientsCntl.moviesList.where((movie) {
+          final titleMatch =
+              movie.title.toLowerCase().contains(searchTerm.toLowerCase());
+          final descriptionMatch = movie.description
+              .toLowerCase()
+              .contains(searchTerm.toLowerCase());
+          final genreMatch =
+              movie.genre.toLowerCase().contains(searchTerm.toLowerCase());
+          return titleMatch || descriptionMatch || genreMatch;
+        }).toList();
+
         return Scaffold(
           drawer: drawer(
-              nameConductor: 'Tony Jaxx',
-              phoneConductor: 'info@puntossmart.com'),
+              nameConductor: 'Delfosti', phoneConductor: 'delfosti@gmail.com'),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: BACKGROUND,
@@ -59,76 +61,129 @@ class HomePage extends GetView<HomeController> {
               return false;
             },
             child: SafeArea(
-              child: Container(
-                color: BACKGROUND,
-                constraints: const BoxConstraints.expand(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 100, // Altura del slide
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                        labelText: 'Buscar Película',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (value) {
+                        searchTerm = value;
+                        clientsCntl.update(); // Update the UI
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: BACKGROUND,
+                      constraints: const BoxConstraints.expand(),
                       child: ListView.builder(
-                        scrollDirection: Axis.horizontal, // Scroll horizontal
-                        itemCount: categories.length, // Número de categorías
+                        itemCount: filteredMovies.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            width: 100, // Ancho de cada categoría
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors
-                                  .white, // Color de fondo de la categoría
-                              borderRadius: BorderRadius.circular(
-                                  10), // Bordes redondeados
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Center(
-                              child: Text(
-                                categories[index], // Texto de la categoría
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 16),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(
+                                filteredMovies[index]
+                                    .title, // Título de la película
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    filteredMovies[index]
+                                        .description, // Descripción de la película
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    'Genre: ${filteredMovies[index].genre}', // Género de la película
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.thumb_up,
+                                          color: filteredMovies[index]
+                                                  .isLiked
+                                                  .value
+                                              ? Colors.blue
+                                              : Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          filteredMovies[index].isLiked.value =
+                                              !filteredMovies[index]
+                                                  .isLiked
+                                                  .value;
+                                          if (filteredMovies[index]
+                                              .isLiked
+                                              .value) {
+                                            filteredMovies[index]
+                                                .isDisliked
+                                                .value = false;
+                                          }
+                                          clientsCntl.update(); // Update the UI
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.thumb_down,
+                                          color: filteredMovies[index]
+                                                  .isDisliked
+                                                  .value
+                                              ? Colors.red
+                                              : Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          filteredMovies[index]
+                                                  .isDisliked
+                                                  .value =
+                                              !filteredMovies[index]
+                                                  .isDisliked
+                                                  .value;
+                                          if (filteredMovies[index]
+                                              .isDisliked
+                                              .value) {
+                                            filteredMovies[index]
+                                                .isLiked
+                                                .value = false;
+                                          }
+                                          clientsCntl.update(); // Update the UI
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: true,
                             ),
                           );
                         },
                       ),
                     ),
-                    const SizedBox(
-                        height: 10), // Espaciado entre el slide y el contenido
-                    Expanded(
-                      child: Container(
-                        color: BACKGROUND,
-                        constraints: const BoxConstraints.expand(),
-                        child: Obx(
-                          () => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: clientsCntl.itemsUnits.value.isNotEmpty
-                                    ? Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 10),
-                                        constraints:
-                                            const BoxConstraints.expand(),
-                                        child: SingleChildScrollView(
-                                          child: Column(
-                                            children:
-                                                clientsCntl.itemsUnits.value,
-                                          ),
-                                        ),
-                                      )
-                                    : const Text('Pendiente..'),
-                              ),
-                              const SizedBox(height: 10.0),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

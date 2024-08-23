@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:puntossmart_usuarios/app/controller/login_controller.dart';
-import 'package:puntossmart_usuarios/app/ui/pages/login/widgets/textfield_pass.dart';
-import 'package:puntossmart_usuarios/app/ui/pages/login/widgets/textfield_user.dart';
-import 'package:puntossmart_usuarios/app/ui/utils/style_utils.dart';
+import 'package:delfosti_app/app/controller/login_controller.dart';
+import 'package:delfosti_app/app/ui/pages/login/widgets/textfield_pass.dart';
+import 'package:delfosti_app/app/ui/pages/login/widgets/textfield_user.dart';
+import 'package:delfosti_app/app/ui/utils/style_utils.dart';
 
 class LoginPage extends GetView<LoginController> {
   @override
@@ -33,7 +33,7 @@ class LoginPage extends GetView<LoginController> {
                       ),
                     ),
                     const Text(
-                      'PUNTOSSMART',
+                      'DELFOSTI',
                       style: TextStyle(
                           fontSize: H2,
                           fontWeight: FontWeight.w400,
@@ -67,7 +67,7 @@ class LoginPage extends GetView<LoginController> {
                   height: 40,
                 ),
                 const Text(
-                  'Todos los derechos reservados @Puntossmart 2024',
+                  'Todos los derechos reservados @delfostis 2024',
                   style: TextStyle(fontSize: P2, color: UNNOTICED),
                 )
               ],

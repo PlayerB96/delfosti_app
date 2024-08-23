@@ -1,4 +1,4 @@
-package com.example.puntossmart_usuarios
+package com.example.delfosti_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,82 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:puntossmart_usuarios/app/routes/pages.dart';
-import 'package:puntossmart_usuarios/app/ui/utils/style_utils.dart';
+import 'package:delfosti_app/app/routes/pages.dart';
+import 'package:delfosti_app/app/ui/utils/style_utils.dart';
 
 Drawer drawer({required String nameConductor, required String phoneConductor}) {
   // Definir el array con los datos de cada elemento del Drawer
   final List<Map<String, dynamic>> drawerItems = [
-    {
-      'title': 'Mi Perfil',
-      'icon': Image.asset('assets/images/Profile.png', fit: BoxFit.fill),
-      'onTap': () {
-        print("Perfil seleccionado");
-      }
-    },
-    {
-      'title': 'Mi Cartera',
-      'icon': Image.asset('assets/images/Wallet.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
-    {
-      'title': 'Mi Código QR',
-      'icon': Image.asset('assets/images/FrameQR.png', fit: BoxFit.fill),
-      'onTap': () {
-        print("Perfil seleccionado");
-      }
-    },
-    {
-      'title': 'Enviar Puntos',
-      'icon': Image.asset('assets/images/Message.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
-    {
-      'title': 'Historial',
-      'icon': Image.asset('assets/images/Document.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
-    {
-      'title': 'Comprar Puntos',
-      'icon': Image.asset('assets/images/Wallet.png', fit: BoxFit.fill),
-      'onTap': () {
-        print("Perfil seleccionado");
-      }
-    },
-    {
-      'title': 'Contáctanos',
-      'icon': Image.asset('assets/images/Message2.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
-    {
-      'title': 'Configuraciones',
-      'icon': Image.asset('assets/images/Setting.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
-    {
-      'title': 'Referidos ',
-      'icon': Image.asset('assets/images/Earn.png', fit: BoxFit.fill),
-      'onTap': () {
-        print("Perfil seleccionado");
-      }
-    },
-    {
-      'title': 'Ayuda & FAQs',
-      'icon': Image.asset('assets/images/Helps.png', fit: BoxFit.fill),
-      'onTap': () async {
-        print("wallet seleccionado");
-      }
-    },
     {
       'title': 'Salir',
       'icon': Image.asset('assets/images/logout.png', fit: BoxFit.fill),

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 const double H0 = 40;
@@ -24,5 +26,5 @@ const Color UNNOTICED = Color.fromARGB(255, 84, 84, 85);
 const String pathLogoBanner = "assets/images/LogoSimple.png";
 const String pathLogoLogin = "assets/images/LogoSimple.png";
 const String pathLogoLoginv2 = "assets/icons/logov2.png";
-const String pathPerson = "assets/images/image13.png";
-const String pathPersonDrawer = "assets/images/image14.png";
+const String pathPerson = "assets/images/images.jpeg";
+const String pathPersonDrawer = "assets/images/images.jpeg";
