@@ -1,3 +1,4 @@
+import 'dart:math'; // Importa el paquete para generar números aleatorios
 import 'package:delfosti_app/app/controller/categories_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,16 @@ class CategoriesPage extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     final MenuzController menuCntl = Get.put(MenuzController());
+
+    Color _generateRandomColor() {
+      final random = Random();
+      return Color.fromARGB(
+        255,
+        random.nextInt(256),
+        random.nextInt(256),
+        random.nextInt(256),
+      );
+    }
 
     return GetBuilder<CategoriesController>(
       builder: (clientsCntl) {
@@ -68,8 +79,7 @@ class CategoriesPage extends GetView<CategoriesController> {
                             width: 100, // Ancho de cada categoría
                             margin: const EdgeInsets.symmetric(horizontal: 5),
                             decoration: BoxDecoration(
-                              color: Colors
-                                  .white, // Color de fondo de la categoría
+                              color: _generateRandomColor(), // Color aleatorio
                               borderRadius: BorderRadius.circular(
                                   10), // Bordes redondeados
                             ),

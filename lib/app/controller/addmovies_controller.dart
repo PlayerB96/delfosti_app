@@ -26,15 +26,19 @@ class AddMoviesController extends GetxController {
       description: descriptionController.text,
       genre: selectedGenre.value,
     );
+    if (titleController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty) {
+      storedMovies.add(newMovie.toJson());
+      await box.write('moviesList', storedMovies);
 
-    storedMovies.add(newMovie.toJson());
-    await box.write('moviesList', storedMovies);
+      titleController.clear();
+      descriptionController.clear();
+      selectedGenre.value = 'All';
 
-    titleController.clear();
-    descriptionController.clear();
-    selectedGenre.value = 'All';
-
-    // Get.back();
-    Get.snackbar('Agregado', 'Película añadida correctamente');
+      // Get.back();
+      Get.snackbar('Agregado', 'Película añadida correctamente');
+    } else {
+      Get.snackbar('Error', 'Rellene todos los campos');
+    }
   }
 }
